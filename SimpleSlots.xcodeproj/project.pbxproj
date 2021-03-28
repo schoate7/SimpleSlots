@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6E60688425FC5CDF00EB5DB4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6E60688325FC5CDF00EB5DB4 /* main.c */; };
+		6E6068B025FDB86400EB5DB4 /* ReelResult.c in Sources */ = {isa = PBXBuildFile; fileRef = 6E6068AF25FDB86400EB5DB4 /* ReelResult.c */; };
+		6E6068B325FDB99200EB5DB4 /* Player.c in Sources */ = {isa = PBXBuildFile; fileRef = 6E6068B225FDB99200EB5DB4 /* Player.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		6E60688025FC5CDF00EB5DB4 /* SimpleSlots */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleSlots; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E60688325FC5CDF00EB5DB4 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		6E60688B25FC5D0E00EB5DB4 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		6E60688C25FC5D3D00EB5DB4 /* ReelResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReelResult.h; sourceTree = "<group>"; };
+		6E6068AF25FDB86400EB5DB4 /* ReelResult.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ReelResult.c; sourceTree = "<group>"; };
+		6E6068B225FDB99200EB5DB4 /* Player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Player.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				6E60688325FC5CDF00EB5DB4 /* main.c */,
+				6E6068AF25FDB86400EB5DB4 /* ReelResult.c */,
+				6E60688C25FC5D3D00EB5DB4 /* ReelResult.h */,
+				6E6068B225FDB99200EB5DB4 /* Player.c */,
+				6E60688B25FC5D0E00EB5DB4 /* Player.h */,
 			);
 			path = SimpleSlots;
 			sourceTree = "<group>";
@@ -118,7 +128,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E6068B025FDB86400EB5DB4 /* ReelResult.c in Sources */,
 				6E60688425FC5CDF00EB5DB4 /* main.c in Sources */,
+				6E6068B325FDB99200EB5DB4 /* Player.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
