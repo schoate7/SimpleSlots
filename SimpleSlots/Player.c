@@ -7,14 +7,14 @@
 
 #include <stdio.h>
 
-/* Player struct */
+//Player struct definition.
 typedef struct Player{
     char playerName[26];
     double playerCash;
     double totalDeposits;
 }Player;
 
-/* Player info */
+//Print attributes of Player struct parameter.
 void playerInfo(Player* pl){
     printf("\nPlayer Information:");
     printf("\nPlayer: %s", pl->playerName);

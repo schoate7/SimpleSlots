@@ -1,5 +1,5 @@
 //
-//  ReelResult.h
+//  ReelResult.h - Defines structure for reel and spin results. Functions to get, store and print results, initialize structs and manage memory.
 //  SimpleSlots
 //
 //  Created by Stephen Choate.
@@ -9,14 +9,14 @@
 #define ReelResult_h
 #include <stdio.h>
 
-/* Reel result structure, holds code (int), description (char[]), value indicator(int) that result is valid */
+/* Reelresult - Struct for a single reel spin, holds code (int), description (char[]), value indicator(int) that result is valid. */
 typedef struct Reelresult{
     int rc;
     int rv;
     char rd[12];
 }Reelresult;
 
-/* Slot result structure for a spin, holds each reel description, bet amount and winnings. Pointer to previous and next result struct */
+/* Slotresult - Strcut for a spin's results. Holds description for each reel (char*), bet amount and winnings (float). Holds pointer to previous and next result structs (struct Slotresult). */
 typedef struct Slotresult{
     char rd1[12];
     char rd2[12];
@@ -27,19 +27,19 @@ typedef struct Slotresult{
     struct Slotresult *nr;
 }Slotresult;
 
-/* Gets a single reel result using random number generator, returns pointer to initialized reel result struct */
+/* getReelResult - Returns pointer to a single reel result, created using random number generator. */
 Reelresult getReelResult(void);
 
-/* Creates a spin result struct initialized as node in linked list. Returns pointer to newly created node */
+/* storeHist - Accepts 3x reel descriptions (char*), bet and winnings (float) and Slotresult struct as parameters. Creates a spin result struct initialized as node in doubly-linked list. Returns pointer to newly created node */
 Slotresult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, Slotresult* p);
 
-/* Prints slot results descriptions and spin number from pointer and integer parameters. Returns pointer to next item in linked list, goverened by order parameter p.  */
+/* printResHist - Accepts pointer to first Slotresult in linked list, spin number (int) and direction parameter (int). Loops through linked list and prints slot result descriptions and spin number from pointer and integer parameters. Returns pointer to next item in linked list, goverened by order parameter p. */
 Slotresult* printResHist(Slotresult *sr, int r, int p);
 
-/* Loops through result history, starting with first pointer. Calls function to print result with current result pointer. Increments run counter, loops while next pointer is not null */
+/* getResHist - Accepts first and last Slotresult pointer, order parameter (int) and number of spins (int). Loops through result history, starting with first pointer. Calls function to print result with current result pointer. Continues until next node is null. */
 void getResHist(Slotresult *fr, Slotresult *lr, int p, int s);
 
-/* Clear memory for result history structs, starting with input parameter for first result pointer to iterate over linked list */
+/* clearResHist - Accepts first result pointer. Loops through linked list first-to-last to clear memory for result history structs. */
 void clearResHist(Slotresult *fr);
 
 #endif /* ReelResult_h */

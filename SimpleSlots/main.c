@@ -15,7 +15,7 @@
 
 #define MAX_BET_VAL 10.0 //Macro for maximum bet allowed
 
-/* Checks in player, collects attributes needed, returns pointer to initialized/allocated player struct */
+//Check in player, collect attributes needed, return pointer to initialized player struct.
 Player* checkInPlayer(void){
     char pName[26];
     float initialDeposit = 0;
@@ -36,7 +36,7 @@ Player* checkInPlayer(void){
     return pl;
 }
 
-/* Prompts user for cash deposit amount, adds deposit to user account */
+//Prompt user for cash deposit amount, add deposit to player cash.
 void depositCash(Player* pl){
     float newDeposit;
     printf("\nPlease enter your cash deposit: ");
@@ -46,7 +46,7 @@ void depositCash(Player* pl){
     printf("\nTotal Cash is now: $%.2f", pl->playerCash);
 }
 
-/* Receives current bet as float param. Prompts user for revised bet, tests against max limit set by global macro value. If 0, leaves bet unchanged, otherwise updates bet to user input */
+//Prompt user for revised bet, test against max limit set by global macro value. If 0, leave bet unchanged, otherwise update bet to user input.
 float changeBet(float curBet){
     float newBet = 0;
     while (!newBet || newBet > MAX_BET_VAL){
@@ -62,7 +62,7 @@ float changeBet(float curBet){
     return newBet;
 }
 
-/* Runs a spin, gets three slot results, calculates winnings, updates player struct, notifies user of spin outcome. */
+//Run a spin, gets three slot results, calculate winnings. Update player struct and notify user of spin outcome.
 Slotresult* spin(Player* pl, float bet, Slotresult* pr){
     printf("\nSpinning...");
     Reelresult r1, r2, r3;
@@ -129,7 +129,7 @@ Slotresult* spin(Player* pl, float bet, Slotresult* pr){
             }
         }
         
-        //If winnings, let user know and deposit, otherwise notify user. Store history in result struct and return pointer.
+        //If winnings exist, notify user and deposit, otherwise notify user of no win. Store history in result struct and return pointer.
         if(w>0){
             printf("\nYou win $%.2f\n", w);
             pl->playerCash += w;
@@ -141,7 +141,7 @@ Slotresult* spin(Player* pl, float bet, Slotresult* pr){
     return pr;
 }
 
-/* Cashes out user, receives player struct, first result, and last result pointers, number of spins as parameters. Prints player info, run history printer if user selects to do so, accepts input on direction to print list (FtL, LtF) */
+//Cash out user, receive player struct, first result, last result pointers and number of spins as parameters. Call function to print player info, prompt user to run history printer with input on direction to print list (FtL, LtF)
 void cashOut(Player *pl, Slotresult *fr, Slotresult *lr, int spins){
     printf("\nCashing out...");
     playerInfo(pl);
@@ -172,7 +172,7 @@ void cashOut(Player *pl, Slotresult *fr, Slotresult *lr, int spins){
     return;
 }
 
-/* Main user menu driver function, receives pointer to Player structure. Loops on input until quit character received, calls appropriate functions based on other input options. */
+//Main user menu driver function, receive pointer to Player struct. Loop on input until quit character received, call functions from user input.
 void menu(Player* pl){
     int quitCmd = 0;
     int spins=0;
@@ -214,7 +214,7 @@ void menu(Player* pl){
     }
 }
 
-/* Main - Initializes a player struct, passes ref to looping menu until player quits */
+//Main - Initialize a player struct, passe pointer to looping menu until player quits.
 int main(int argc, char *argv[]){
     printf("Welcome to Simple Slots!\n");
     Player* p = checkInPlayer();

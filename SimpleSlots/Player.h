@@ -1,5 +1,5 @@
 //
-//  Player.h
+//  Player.h - Defines player struct, contains function to print player details.
 //  SimpleSlots
 //
 //  Created by Stephen Choate.
@@ -8,14 +8,14 @@
 #ifndef Player_h
 #define Player_h
 
-/* Player structure - holds player name, total depost tracking, and player cash for ongoing increment/decrement as bets are placed/winnings deposited */
+/* Player struct - holds name (char*), player cash (double), and total deposits (double). */
 typedef struct Player{
     char playerName[26];
     double playerCash;
     double totalDeposits;
 }Player;
 
-/* Takes in a reference to a player structure and prints the attributes */
+/* playerInfo - Accepts pointer to a player struct as parameter, prints struct attributes. */
 void playerInfo(Player* pl);
 
 #endif /* Player_h */

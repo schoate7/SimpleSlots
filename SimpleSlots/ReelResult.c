@@ -9,14 +9,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Reel result structure, holds code (int), description (char[]), value indicator(int) that result is valid */
+//Reel result struct definition
 typedef struct Reelresult{
     int rc;
     int rv;
     char rd[12];
 }Reelresult;
 
-/* Slot result structure for a spin, holds each reel description, bet amount and winnings. Pointer to previous and next result struct */
+//Slot result struct definition
 typedef struct Slotresult{
     char rd1[12];
     char rd2[12];
@@ -27,7 +27,7 @@ typedef struct Slotresult{
     struct Slotresult *nr;
 }Slotresult;
 
-/* Gets a single reel result using random number generator, returns pointer to initialized reel result struct */
+//Get a single reel result using random number generator, set code & description, return pointer to initialized reel result struct.
 Reelresult getReelResult(){
     int r;
     int rc;
@@ -66,7 +66,7 @@ Reelresult getReelResult(){
     }
 }
 
-/* Creates a spin result struct initialized as node in linked list. Returns pointer to newly created node */
+//Create spin result struct initialized as node in linked list. Return pointer to newly created node.
 Slotresult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, Slotresult* p){
     Slotresult *sr = malloc(sizeof(Slotresult));
     sr->bet=b;
@@ -83,13 +83,13 @@ Slotresult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, S
     return sr;
 }
 
-/* Prints slot results descriptions and spin number from pointer and integer parameters. Returns pointer to next item in linked list, goverened by order parameter p.  */
+//Print slot results descriptions and spin number. Return pointer to next item in linked list, goverened by order parameter p.
 Slotresult* printResHist(Slotresult *sr, int r, int p){
     printf("\nSpin %i - Bet: $%.2f, Win: $%.2f. Result:    %s   %s   %s", r, sr->bet, sr->win, sr->rd1, sr->rd2, sr->rd3);
     return (p) ? sr->nr : sr->pr;
 }
 
-/* Loops through result history, starting with first pointer. Calls function to print result with current result pointer. Increments run counter, loops while next pointer is not null */
+//Loop through result history, starting with first or last pointer, governed by order parameter. Call function to print each result.
 void getResHist(Slotresult *fr, Slotresult *lr, int p, int s){
     Slotresult *cr;
     cr = (p) ? fr : lr;
@@ -101,7 +101,7 @@ void getResHist(Slotresult *fr, Slotresult *lr, int p, int s){
     }while(cr);
 }
 
-/* Clear memory for result history structs, starting with input parameter for first result pointer to iterate over linked list */
+//Clear memory for result history structs, starting with first result pointer.
 void clearResHist(Slotresult *fr){
     Slotresult *cr = fr;
     Slotresult *nr;
