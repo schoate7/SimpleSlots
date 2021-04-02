@@ -1,5 +1,5 @@
 //
-//  ReelResult.c
+//  Results.c
 //  SimpleSlots
 //
 //  Created by Stephen Choate.
@@ -17,15 +17,15 @@ typedef struct Reelresult{
 }Reelresult;
 
 //Slot result struct definition
-typedef struct Slotresult{
+typedef struct SpinResult{
     char rd1[12];
     char rd2[12];
     char rd3[12];
     float bet, win;
 
-    struct Slotresult *pr;
-    struct Slotresult *nr;
-}Slotresult;
+    struct SpinResult *pr;
+    struct SpinResult *nr;
+}SpinResult;
 
 //Get a single reel result using random number generator, set code & description, return pointer to initialized reel result struct.
 Reelresult getReelResult(){
@@ -67,8 +67,8 @@ Reelresult getReelResult(){
 }
 
 //Create spin result struct initialized as node in linked list. Return pointer to newly created node.
-Slotresult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, Slotresult* p){
-    Slotresult *sr = malloc(sizeof(Slotresult));
+SpinResult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, SpinResult* p){
+    SpinResult *sr = malloc(sizeof(SpinResult));
     sr->bet=b;
     sr->win=w;
     sr->pr=(p) ? p : NULL;
@@ -84,14 +84,14 @@ Slotresult* storeHist(char r1[12], char r2[12], char r3[12], float b, float w, S
 }
 
 //Print slot results descriptions and spin number. Return pointer to next item in linked list, goverened by order parameter p.
-Slotresult* printResHist(Slotresult *sr, int r, int p){
+SpinResult* printResHist(SpinResult *sr, int r, int p){
     printf("\nSpin %i - Bet: $%.2f, Win: $%.2f. Result:    %s   %s   %s", r, sr->bet, sr->win, sr->rd1, sr->rd2, sr->rd3);
     return (p) ? sr->nr : sr->pr;
 }
 
 //Loop through result history, starting with first or last pointer, governed by order parameter. Call function to print each result.
-void getResHist(Slotresult *fr, Slotresult *lr, int p, int s){
-    Slotresult *cr;
+void getResHist(SpinResult *fr, SpinResult *lr, int p, int s){
+    SpinResult *cr;
     cr = (p) ? fr : lr;
     int runs = (p) ? 1 : s;
 
@@ -102,9 +102,9 @@ void getResHist(Slotresult *fr, Slotresult *lr, int p, int s){
 }
 
 //Clear memory for result history structs, starting with first result pointer.
-void clearResHist(Slotresult *fr){
-    Slotresult *cr = fr;
-    Slotresult *nr;
+void freeResHist(SpinResult *fr){
+    SpinResult *cr = fr;
+    SpinResult *nr;
     
     do{
         nr = (cr->nr!=NULL) ? cr->nr : NULL;

@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include "Player.h"
-#include "ReelResult.h"
+#include "Results.h"
 
 #define MAX_BET_VAL 10.0 //Macro for maximum bet allowed
 
@@ -63,7 +63,7 @@ float changeBet(float curBet){
 }
 
 //Run a spin, gets three slot results, calculate winnings. Update player struct and notify user of spin outcome.
-Slotresult* spin(Player* pl, float bet, Slotresult* pr){
+SpinResult* spin(Player* pl, float bet, SpinResult* pr){
     printf("\nSpinning...");
     Reelresult r1, r2, r3;
     float w = 0;
@@ -142,7 +142,7 @@ Slotresult* spin(Player* pl, float bet, Slotresult* pr){
 }
 
 //Cash out user, receive player struct, first result, last result pointers and number of spins as parameters. Call function to print player info, prompt user to run history printer with input on direction to print list (FtL, LtF)
-void cashOut(Player *pl, Slotresult *fr, Slotresult *lr, int spins){
+void cashOut(Player *pl, SpinResult *fr, SpinResult *lr, int spins){
     printf("\nCashing out...");
     playerInfo(pl);
     int v=0;
@@ -167,7 +167,7 @@ void cashOut(Player *pl, Slotresult *fr, Slotresult *lr, int spins){
                 printf("\nInvalid input, try again.");
                 break;
         }
-        clearResHist(fr);
+        freeResHist(fr);
     }
     return;
 }
@@ -178,8 +178,8 @@ void menu(Player* pl){
     int spins=0;
     float betValue = 1.00;
 
-    Slotresult *pr = 0;
-    Slotresult *s = 0;
+    SpinResult *pr = 0;
+    SpinResult *s = 0;
 
     printf("\nDefault bet is set at $1.00");
 
