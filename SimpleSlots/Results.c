@@ -106,6 +106,10 @@ void freeResHist(SpinResult *fr){
     SpinResult *cr = fr;
     SpinResult *nr;
     
+    if(fr==NULL){
+        return;
+    }
+    
     do{
         nr = (cr->nr!=NULL) ? cr->nr : NULL;
         free(cr);

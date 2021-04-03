@@ -65,8 +65,8 @@
 			children = (
 				6E60688325FC5CDF00EB5DB4 /* main.c */,
 				6E6068AF25FDB86400EB5DB4 /* Results.c */,
-				6E60688C25FC5D3D00EB5DB4 /* Results.h */,
 				6E6068B225FDB99200EB5DB4 /* Player.c */,
+				6E60688C25FC5D3D00EB5DB4 /* Results.h */,
 				6E60688B25FC5D0E00EB5DB4 /* Player.h */,
 			);
 			path = SimpleSlots;

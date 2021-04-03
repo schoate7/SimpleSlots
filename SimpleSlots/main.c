@@ -14,6 +14,37 @@
 #include "Results.h"
 
 #define MAX_BET_VAL 10.0 //Macro for maximum bet allowed
+#define GET_DEPOSIT "Please enter your deposit: "
+#define GET_NEW_DEPOSIT "\nPlease enter your cash deposit: "
+#define NEW_BET "\nPlease enter your new bet (max bet: $%.2f, 0 to remain): "
+#define HIST_PROMPT "\nWould you like to print your history?: "
+#define HIST_ORDER "\nFirst to Last (1) or Last to First (0): "
+#define MENU_LIST "\n[S]pin, set [B]et, [D]eposit cash, player [I]nfo, [C]ash out: "
+
+//Generic function to get a character value, take in char array for user prompt text.
+char getChar(char stringIn[]){
+    char cIn = ' ';
+    char *inp = (char*)malloc(64);
+    printf("%s", stringIn);
+    scanf(" ");
+    fgets(inp, 64, stdin);
+    if(inp!=NULL){
+        cIn = toupper(inp[0]);
+    }
+    return cIn;
+}
+
+//Generic function to get a float value, take in char array for user prompt text.
+float getNum(char stringIn[]){
+    float flIn;
+    char *inp = (char*)malloc(64);
+    printf("%s",stringIn);
+    scanf(" ");
+    fgets(inp, 64, stdin);
+    flIn = atof(inp);
+    free(inp);
+    return flIn;
+}
 
 //Check in player, collect attributes needed, return pointer to initialized player struct.
 Player* checkInPlayer(void){
@@ -21,9 +52,12 @@ Player* checkInPlayer(void){
     float initialDeposit = 0;
     
     printf("Please enter your name: ");
-    scanf("%1023[^\n]", pName);
-    printf("Please enter your deposit: ");
-    scanf("%f", &initialDeposit);
+    scanf(" ");
+    fgets(pName, 156, stdin);
+    if(pName[strlen(pName)-1] == '\n'){
+        pName[strlen(pName)-1] = '\0';
+    }
+    initialDeposit = getNum(GET_DEPOSIT);
     printf("Player Name: %s", pName);
     printf("\nInitial Deposit: $%.2f\n", initialDeposit);
 
@@ -32,15 +66,12 @@ Player* checkInPlayer(void){
     pl->totalDeposits=initialDeposit;
     size_t destStr = sizeof(pl->playerName);
     strncpy(pl->playerName, pName, destStr);
-    pl->playerName[destStr-1] = '\0';
     return pl;
 }
 
 //Prompt user for cash deposit amount, add deposit to player cash.
 void depositCash(Player* pl){
-    float newDeposit;
-    printf("\nPlease enter your cash deposit: ");
-    scanf("%f", &newDeposit);
+    float newDeposit = getNum(GET_NEW_DEPOSIT);
     pl->totalDeposits += newDeposit;
     pl->playerCash += newDeposit;
     printf("\nTotal Cash is now: $%.2f", pl->playerCash);
@@ -49,9 +80,10 @@ void depositCash(Player* pl){
 //Prompt user for revised bet, test against max limit set by global macro value. If 0, leave bet unchanged, otherwise update bet to user input.
 float changeBet(float curBet){
     float newBet = 0;
+    char *getNewBet;
     while (!newBet || newBet > MAX_BET_VAL){
-        printf("\nPlease enter your new bet (0 to remain): ");
-        scanf("%f", &newBet);
+        asprintf(&getNewBet, NEW_BET, MAX_BET_VAL);
+        newBet = getNum(getNewBet);
         if (newBet > MAX_BET_VAL){
             printf("\nBet exceeds max ($%.2f), please enter a lower number.", MAX_BET_VAL);
         }else if (!newBet){
@@ -146,15 +178,13 @@ void cashOut(Player *pl, SpinResult *fr, SpinResult *lr, int spins){
     printf("\nCashing out...");
     playerInfo(pl);
     int v=0;
-    char resp;
+    char inp;
     int orderParam = 0;
     while(!v){
-        printf("\nWould you like to print your history?: ");
-        scanf(" %c", &resp);
-        switch(resp){
+        inp = getChar(HIST_PROMPT);
+        switch(inp){
             case 'Y': case 'y':
-                printf("\nFirst to Last (1) or Last to First (0): ");
-                scanf("%i", &orderParam);
+                orderParam = (int)getNum(HIST_ORDER);
                 orderParam = (!orderParam) ? 0 : 1;
                 spins ? getResHist(fr,lr,orderParam,spins) : printf("\nSorry, you didn't have any spins, goodbye!");
                 v++;
@@ -184,10 +214,8 @@ void menu(Player* pl){
     printf("\nDefault bet is set at $1.00");
 
     while (!quitCmd){
-        char inChar;
-        printf("\n[S]pin, set [B]et, [D]eposit cash, player [I]nfo, [C]ash out: ");
-        scanf(" %c", &inChar);
-        switch (toupper(inChar)){
+        char inp = getChar(MENU_LIST);
+        switch (inp){
             case 'C':
                 cashOut(pl, s, pr, spins);
                 quitCmd = 1;
